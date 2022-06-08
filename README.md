@@ -2,7 +2,7 @@
 
 Typethon is an extremely lightweight and simple module for strongly typed Python.
 
-Typethon has **zero dependencies**, nada, zilch! Typethon *doesn't even use imports from the standard library!*
+Typethon has **zero dependencies**, nada, zilch! Typethon *doesn't even use imports from the standard library!* (except for argument parsing in the CLIs, but they are completely optional and only provide linting / building functionality)
 
 (There are dependencies for development and building, but they are not acquired on installing Typethon.)
 
