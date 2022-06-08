@@ -1,0 +1,7 @@
+.dccache
+/typethon.egg-info/
+/build/
+/dist/
+/env/
+*.pyc
+test.py

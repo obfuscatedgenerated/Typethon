@@ -1,0 +1,2 @@
+[console_scripts]
+typethon=typethon.cli:main
