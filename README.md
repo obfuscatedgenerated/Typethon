@@ -20,7 +20,7 @@ from typethon.decorators import *
 def my_epic_function(a, b):
     return a + b
 
-@ArgumentTypes(use_annotations=True)
+@ArgumentTypes(use_annotations=True, constraints={"b": (lambda x: x > 0, lambda x: x <= 100)}, use_arg_passing=False)
 @ReturnType(types=type(None)) # must use NoneType to specify we actually want to restrict the return type to None, not just have no restriction
 def funky_function(a: str, b: int):
     print(a * b)
