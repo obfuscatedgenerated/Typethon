@@ -25,7 +25,6 @@ def my_epic_function(a, b):
 def funky_function(a: str, b: int):
     print(a * b)
 
-@ArgumentTypes(use_annotations=True)
 @ReturnType(use_annotations=True)
 def ok_this_is_a_function() -> None:
     print("ok")
