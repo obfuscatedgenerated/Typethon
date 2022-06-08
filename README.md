@@ -37,7 +37,7 @@ ok_this_is_a_function()
 
 ## Development
 
-1. Clone the repository: `git clone https://github.com/obfuscatedgenerated/typethon.git`
+1. Clone the repository: `git clone https://github.com/obfuscatedgenerated/Typethon.git`
 2. (optional but recommended) Create a virtual environment: `python -m venv env` (or `python3 -m venv env`) and then activate it: `.\env\Scripts\activate` (or `source env/bin/activate`)
 3. Install build/dev dependencies: `pip install -r requirements.txt`
 4. Once you've made changes, add yourself as a contributor: `python build_tool.py add_contributor <your username>` then commit and make a PR.
