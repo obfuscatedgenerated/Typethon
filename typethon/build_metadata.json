@@ -1,1 +1,6 @@
-{}
+{
+    "contributors": ["obfuscatedgenerated"],
+    "build_timestamp": 0,
+    "build_commit": "",
+    "build_commit_short": ""
+}
