@@ -10,6 +10,31 @@ Typethon has **zero dependencies**, nada, zilch! Typethon *doesn't even use impo
 
 1. Install via pip: `pip install typethon`
 
+## Decorator Example
+    
+```python
+from typethon.decorators import *
+
+@ReturnType(types=int, constraints=(lambda x: x > 0), use_arg_passing=False) # ReturnType must go before if disabling arg passing, although I have not found a reason for a user to do so
+@ArgumentTypes(types={"a": int, "b": int}, constraints={"a": (lambda x: x > 0, lambda x: x < 10), "b": (lambda x: x > 0, lambda x: x < 10)}, use_arg_passing=False)
+def my_epic_function(a, b):
+    return a + b
+
+@ArgumentTypes(use_annotations=True)
+@ReturnType(types=type(None)) # must use NoneType to specify we actually want to restrict the return type to None, not just have no restriction
+def funky_function(a: str, b: int):
+    print(a * b)
+
+@ArgumentTypes(use_annotations=True)
+@ReturnType(use_annotations=True)
+def ok_this_is_a_function() -> None:
+    print("ok")
+
+print(my_epic_function(1,2))
+funky_function("hello", 3)
+ok_this_is_a_function()
+```
+
 ## Development
 
 1. Clone the repository: `git clone https://github.com/obfuscatedgenerated/typethon.git`
@@ -23,7 +48,3 @@ Typethon has **zero dependencies**, nada, zilch! Typethon *doesn't even use impo
 
 1. Make sure all build/dev dependencies are installed: `pip install -r requirements.txt`
 2. From your virtual environment (if you used one, otherwise just run as usual): `python build_tool.py build`
-
-## Featured Tools
-
-...
