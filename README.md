@@ -26,7 +26,7 @@ def funky_function(a: str, b: int):
     print(a * b)
 
 @ReturnType(use_annotations=True)
-def ok_this_is_a_function() -> None:
+def ok_this_is_a_function() -> None: # the annotation parser handles None to NoneType conversion automagically here
     print("ok")
 
 print(my_epic_function(1,2))
