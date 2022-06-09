@@ -3,7 +3,6 @@ try:
 except ModuleNotFoundError:
     from utils.cli_arg_validators import *
 import argparse
-from re import T
 import runpy
 import json
 from datetime import datetime
