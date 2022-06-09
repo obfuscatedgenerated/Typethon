@@ -32,11 +32,12 @@ def ok_this_is_a_function() -> None: # the annotation parser handles None to Non
 @Strict() # syntactic sugar for @ArgumentTypes(use_annotations=True) combined with @ReturnType(use_annotations=True), this does not accept any arguments
 def hi_func(a:str) -> str:
     print(a)
+    return a.upper()
 
 print(my_epic_function(1,2))
 funky_function("hello", 3)
 ok_this_is_a_function()
-hi_func("hi!")
+print(hi_func("hi!"))
 ```
 
 ## Development
