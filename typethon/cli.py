@@ -40,6 +40,7 @@ class Visitor(ast.NodeVisitor):
     func_anns = {}
     func_anns_returns = {}
     clean_decorators = {}
+    class_cache = {}
     def generic_visit(self, node):
         self.level += 1
         if isinstance(node, ast.FunctionDef):
@@ -69,6 +70,8 @@ class Visitor(ast.NodeVisitor):
                     self.func_anns_returns[node.name] = node.returns.id # convert this to class/type by its name
                 elif isinstance(node.returns, ast.Constant):
                     self.func_anns_returns[node.name] = node.returns.value # this is already a class/type
+        elif isinstance(node, ast.ClassDef):
+            self.class_cache[node.name] = node
 
         #print(f'{"    "*self.level}entering {ast.dump(node)}')
         super().generic_visit(node)
@@ -110,6 +113,18 @@ class Visitor(ast.NodeVisitor):
                 types = self.clean_decorators[func]["ReturnType"]["types"]
                 if isinstance(types, type(None)):
                     return type(None)
+                elif isinstance(types, str):
+                    if isinstance(ast.parse(types).body[0].value, ast.Call):
+                        if ast.parse(types).body[0].value.func.id == "type":
+                            return type(ast.parse(types).body[0].value.args[0].value)
+                    try: 
+                        return getattr(__builtins__, types)
+                    except AttributeError:
+                        if types in self.class_cache:
+                            return self.class_cache[types]
+                        else:
+                            raise Exception(f"Could not resolve class/type {types}")
+                return types
     
     def get_return_constraints_of_func(self, func):
         # need to support @Strict
