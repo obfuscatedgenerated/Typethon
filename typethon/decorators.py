@@ -71,3 +71,10 @@ class ReturnType:
         returnTypeWrapper.usePassedArgs = self.use_arg_passing
         returnTypeWrapper.passedFuncName = func.__name__
         return returnTypeWrapper
+
+def Strict(func):
+    def strictWrapper(*args, **kwargs):
+        return ArgumentTypes(use_annotations=True)(ReturnType(use_annotations=True)(func))(*args, **kwargs)
+    strictWrapper.passedAnnotations = func.__annotations__
+    strictWrapper.passedCo_varnames = func.__code__.co_varnames
+    return strictWrapper

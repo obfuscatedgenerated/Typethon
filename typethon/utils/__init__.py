@@ -1,2 +1,2 @@
-import utils.type_checkers
-import utils.cli_arg_validators
+import typethon.utils.type_checkers
+import typethon.utils.cli_arg_validators
