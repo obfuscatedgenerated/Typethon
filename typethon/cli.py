@@ -111,19 +111,25 @@ class Visitor(ast.NodeVisitor):
         if "ReturnType" in self.clean_decorators[func]:
             if "types" in self.clean_decorators[func]["ReturnType"]:
                 types = self.clean_decorators[func]["ReturnType"]["types"]
+                # overall this whole approach is poor, there must be something clever we can do by caching stuff from ast
+                # this doesnt consider classes from modules, lets just leave it as a string
                 if isinstance(types, type(None)):
-                    return type(None)
-                elif isinstance(types, str):
-                    if isinstance(ast.parse(types).body[0].value, ast.Call):
-                        if ast.parse(types).body[0].value.func.id == "type":
-                            return type(ast.parse(types).body[0].value.args[0].value)
-                    try: 
-                        return getattr(__builtins__, types)
-                    except AttributeError:
-                        if types in self.class_cache:
-                            return self.class_cache[types]
-                        else:
-                            raise Exception(f"Could not resolve class/type {types}")
+                    #return type(None)
+                    return "NoneType"
+                if types == "type(None)":
+                    return "NoneType"
+                #elif isinstance(types, str):
+                #    if isinstance(ast.parse(types).body[0].value, ast.Call):
+                #        if ast.parse(types).body[0].value.func.id == "type":
+                #            return type(ast.parse(types).body[0].value.args[0].value)
+                #    try: 
+                #        return getattr(__builtins__, types)
+                #    except AttributeError:
+                #        if types in self.class_cache:
+                #            return self.class_cache[types] # need to resolve back to class object
+                #        else:
+                #            raise Exception(f"Could not resolve class/type {types}")
+                #return types
                 return types
     
     def get_return_constraints_of_func(self, func):
