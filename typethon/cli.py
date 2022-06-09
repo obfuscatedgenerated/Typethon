@@ -80,11 +80,7 @@ class Visitor(ast.NodeVisitor):
         for func in self.func_decs:
             self.clean_decorators[func] = {}
             for dec in self.func_decs[func]:
-                if isinstance(dec, ast.Name):
-                    print(ast.dump(dec))
-                    print("expect a crash, need to treat strict as a combination of the 2 decorators")
-                # if @Strict is used, it should be name (current implementation)
-                # once @Strict implements arguments, it will be a func as per the other decorators
+                # need to treat strict as a combination
                 if not dec.func.id in self.clean_decorators[func]:
                     self.clean_decorators[func][dec.func.id] = {}
                 for kwd in dec.keywords:

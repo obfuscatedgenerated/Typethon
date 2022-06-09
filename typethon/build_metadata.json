@@ -1,6 +1,8 @@
 {
-    "contributors": ["obfuscatedgenerated"],
-    "build_timestamp": 0,
-    "build_commit": "",
-    "build_commit_short": ""
+    "build_commit": "4e37777343ce529ad95bf2fc3df3d0d666a7efda",
+    "build_commit_short": "4e37777",
+    "build_timestamp": 1654792000.7962756,
+    "contributors": [
+        "obfuscatedgenerated"
+    ]
 }

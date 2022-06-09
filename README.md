@@ -29,7 +29,7 @@ def funky_function(a: str, b: int):
 def ok_this_is_a_function() -> None: # the annotation parser handles None to NoneType conversion automagically here
     print("ok")
 
-@Strict # syntactic sugar for @ArgumentTypes(use_annotations=True) combined with @ReturnType(use_annotations=True), this does not accept any arguments
+@Strict() # syntactic sugar for @ArgumentTypes(use_annotations=True) combined with @ReturnType(use_annotations=True), this does not accept any arguments
 def hi_func(a:str) -> str:
     print(a)
 

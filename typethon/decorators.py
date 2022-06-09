@@ -72,9 +72,14 @@ class ReturnType:
         returnTypeWrapper.passedFuncName = func.__name__
         return returnTypeWrapper
 
-def Strict(func):
-    def strictWrapper(*args, **kwargs):
-        return ArgumentTypes(use_annotations=True)(ReturnType(use_annotations=True)(func))(*args, **kwargs)
-    strictWrapper.passedAnnotations = func.__annotations__
-    strictWrapper.passedCo_varnames = func.__code__.co_varnames
-    return strictWrapper
+class Strict:
+    def __init__(self, overflow_func=None):
+        # add support for args such as constraints (need a way to filter between return and arg constraints)
+        if overflow_func is not None:
+            raise SyntaxError("this decorator must be called as a function")
+    def __call__(self, func):
+        def strictWrapper(*args, **kwargs):
+            return ArgumentTypes(use_annotations=True)(ReturnType(use_annotations=True)(func))(*args, **kwargs)
+        strictWrapper.passedAnnotations = func.__annotations__
+        strictWrapper.passedCo_varnames = func.__code__.co_varnames
+        return strictWrapper
