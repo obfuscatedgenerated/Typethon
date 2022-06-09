@@ -48,15 +48,28 @@ class Visitor(ast.NodeVisitor):
             self.func_anns[node.name] = {}
             for arg in node.args.args:
                 if arg.annotation:
-                    self.func_anns[node.name][arg.arg] = arg.annotation.id # convert this to class/type by its name
+                    if isinstance(arg.annotation, ast.Name):
+                        self.func_anns[node.name][arg.arg] = arg.annotation.id # convert this to class/type by its name
+                    elif isinstance(arg.annotation, ast.Constant):
+                        self.func_anns[node.name][arg.arg] = arg.annotation.value # this is already a class/type
             for arg in node.args.kwonlyargs:
                 if arg.annotation:
-                    self.func_anns[node.name][arg.arg] = arg.annotation.id # convert this to class/type by its name
+                    if isinstance(arg.annotation, ast.Name):
+                        self.func_anns[node.name][arg.arg] = arg.annotation.id # convert this to class/type by its name
+                    elif isinstance(arg.annotation, ast.Constant):
+                        self.func_anns[node.name][arg.arg] = arg.annotation.value # this is already a class/type
             for arg in node.args.posonlyargs:
                 if arg.annotation:
-                    self.func_anns[node.name][arg.arg] = arg.annotation.id # convert this to class/type by its name
+                    if isinstance(arg.annotation, ast.Name):
+                        self.func_anns[node.name][arg.arg] = arg.annotation.id # convert this to class/type by its name
+                    elif isinstance(arg.annotation, ast.Constant):
+                        self.func_anns[node.name][arg.arg] = arg.annotation.value # this is already a class/type
             if node.returns:
-                self.func_anns_returns[node.name] = node.returns.value # this is already a class/type
+                # need to support @Strict
+                if isinstance(node.returns, ast.Name):
+                    self.func_anns_returns[node.name] = node.returns.id # convert this to class/type by its name
+                elif isinstance(node.returns, ast.Constant):
+                    self.func_anns_returns[node.name] = node.returns.value # this is already a class/type
 
         #print(f'{"    "*self.level}entering {ast.dump(node)}')
         super().generic_visit(node)
@@ -64,15 +77,22 @@ class Visitor(ast.NodeVisitor):
         #print(f'{"    "*self.level}leaving {ast.dump(node)}')
     
     def generate_clean_decorators(self):
+        # need to support @Strict
         for func in self.func_decs:
             self.clean_decorators[func] = {}
             for dec in self.func_decs[func]:
+                if isinstance(dec, ast.Name):
+                    print(ast.dump(dec))
+                    print("expect a crash, need to treat strict as a combination of the 2 decorators")
+                # if @Strict is used, it should be name (current implementation)
+                # once @Strict implements arguments, it will be a func as per the other decorators
                 if not dec.func.id in self.clean_decorators[func]:
                     self.clean_decorators[func][dec.func.id] = {}
                 for kwd in dec.keywords:
                     self.clean_decorators[func][dec.func.id][kwd.arg] = ast.unparse(kwd.value)
     
     def merge_annotations_to_types(self):
+        # need to support @Strict
         for func in self.clean_decorators:
             for dec in self.clean_decorators[func]:
                 if not "use_annotations" in self.clean_decorators[func][dec]:
@@ -89,6 +109,7 @@ class Visitor(ast.NodeVisitor):
                         self.clean_decorators[func][dec]["types"] = self.func_anns_returns[func]
     
     def get_return_type_of_func(self, func):
+        # need to support @Strict
         if "ReturnType" in self.clean_decorators[func]:
             if "types" in self.clean_decorators[func]["ReturnType"]:
                 types = self.clean_decorators[func]["ReturnType"]["types"]
@@ -96,16 +117,19 @@ class Visitor(ast.NodeVisitor):
                     return type(None)
     
     def get_return_constraints_of_func(self, func):
+        # need to support @Strict
         if "ReturnType" in self.clean_decorators[func]:
             if "constraints" in self.clean_decorators[func]["ReturnType"]:
                 return self.clean_decorators[func]["ReturnType"]["constraints"]
     
     def get_arg_types_of_func(self, func):
+        # need to support @Strict
         if "ArgumentTypes" in self.clean_decorators[func]:
             if "types" in self.clean_decorators[func]["ArgumentTypes"]:
                 return self.clean_decorators[func]["ArgumentTypes"]["types"]
     
     def get_arg_constraints_of_func(self, func):
+        # need to support @Strict
         if "ArgumentTypes" in self.clean_decorators[func]:
             if "constraints" in self.clean_decorators[func]["ArgumentTypes"]:
                 return self.clean_decorators[func]["ArgumentTypes"]["constraints"]
