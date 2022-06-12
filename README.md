@@ -1,5 +1,7 @@
 # Typethon
 
+![100% pure](https://img.shields.io/badge/100%25-pure-brightgreen) ![any color, so long as it's black](https://img.shields.io/badge/any%20color%2C%20so%20long%20as%20it's-black-black) ![wheel, yes](https://img.shields.io/pypi/wheel/typethon) ![pypi version](https://img.shields.io/pypi/v/typethon) ![pypi downloads](https://img.shields.io/pypi/dm/typethon)
+
 Typethon is an extremely lightweight and simple module for strongly typed Python.
 
 Typethon has **zero dependencies**, nada, zilch! Typethon *doesn't even use imports from the standard library!* (except for argument parsing in the CLIs, but they are completely optional and only provide linting / building functionality)
