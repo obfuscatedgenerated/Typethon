@@ -33,6 +33,11 @@ def generic_arg_type_check(func, args, kwargs, types, constraints, use_annotatio
 
     pos_args = all_args - kwarg_count
 
+    if len(args) > pos_args:
+        raise TypeError(
+            f"{func.__name__}() takes {pos_args} positional arguments but {len(args)} were given"
+        )
+
     if defaults is not None:
         defaults_map = dict(zip(co_varnames[-len(defaults) :], defaults))
     else:
