@@ -1,6 +1,6 @@
 # Typethon
 
-![100% pure](https://img.shields.io/badge/100%25-pure-brightgreen) ![any color, so long as it's black](https://img.shields.io/badge/any%20color%2C%20so%20long%20as%20it's-black-black) ![wheel, yes](https://img.shields.io/pypi/wheel/typethon) ![pypi version](https://img.shields.io/pypi/v/typethon) ![pypi downloads](https://img.shields.io/pypi/dm/typethon)
+![100% pure](https://img.shields.io/badge/100%25-pure-brightgreen) ![any color, so long as it's black](https://img.shields.io/badge/any%20color%2C%20so%20long%20as%20it's-black-black) ![wheel, yes](https://img.shields.io/pypi/wheel/typethon) [![pypi version](https://img.shields.io/pypi/v/typethon)](https://pypi.org/project/typethon/#history) [![pypi downloads](https://img.shields.io/pypi/dm/typethon)](https://pypi.org/project/typethon/#files)
 
 Typethon is an extremely lightweight and simple module for strongly typed Python.
 
@@ -8,7 +8,7 @@ Typethon has **zero dependencies**, nada, zilch! Typethon *doesn't even use impo
 
 (There are dependencies for development and building, but they are not acquired on installing Typethon.)
 
-## Installation
+## Installation from [PyPI](https://pypi.org/project/typethon/)
 
 1. Install via pip: `pip install typethon`
 
