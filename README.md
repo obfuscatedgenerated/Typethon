@@ -19,33 +19,33 @@ from typethon.decorators import *
 
 @ReturnType(types=int, constraints=(lambda x: x > 0), use_arg_passing=False) # ReturnType must go before if disabling arg passing, although I have not found a reason for a user to do so
 @ArgumentTypes(types={"a": int, "b": int}, constraints={"a": (lambda x: x > 0, lambda x: x < 10), "b": (lambda x: x > 0, lambda x: x < 10)}, use_arg_passing=False)
-def my_epic_function(a, b):
+def constrained_add(a, b):
     return a + b
 
 @ArgumentTypes(use_annotations=True, constraints={"b": (lambda x: x > 0, lambda x: x <= 100)})
 @ReturnType(types=type(None)) # must use NoneType to specify we actually want to restrict the return type to None, not just have no restriction
-def funky_function(a: str, b: int):
+def multiplier_procedure(a: str, b: int):
     print(a * b)
 
 @ReturnType(use_annotations=True)
-def ok_this_is_a_function() -> None: # the annotation parser handles None to NoneType conversion automagically here
-    print("ok")
+def silent_procedure() -> None: # the annotation parser handles None to NoneType conversion automagically here
+    print("Hello World!")
 
 @Strict() # syntactic sugar for @ArgumentTypes(use_annotations=True) combined with @ReturnType(use_annotations=True), this does not accept any arguments
-def hi_func(a:str) -> str:
+def strict_uppercase(a:str) -> str:
     print(a)
     return a.upper()
 
 @Strict(arg_constraints={"a": (lambda x: x > 0, lambda x: x < 5)}, return_constraints=(lambda x: x > 0, lambda x: x < 10)) # Strict also accepts constraints, denoted as separate arguments
-def hello_func(a:int) -> int:
+def strict_constrained_multiply(a:int) -> int:
     print(a)
     return a * 2
 
-print(my_epic_function(1,2))
-funky_function("hello", 3)
-ok_this_is_a_function()
-print(hi_func("hi!"))
-hello_func(4)
+print(constrained_add(1,2))
+multiplier_procedure("hello", 3)
+silent_procedure()
+print(strict_uppercase("hi!"))
+strict_constrained_multiply(4)
 ```
 
 ## Development
