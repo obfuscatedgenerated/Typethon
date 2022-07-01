@@ -36,10 +36,16 @@ def hi_func(a:str) -> str:
     print(a)
     return a.upper()
 
+@Strict(arg_constraints={"a": (lambda x: x > 0, lambda x: x < 5)}, return_constraints=(lambda x: x > 0, lambda x: x < 10)) # Strict also accepts constraints, denoted as separate arguments
+def hello_func(a:int) -> int:
+    print(a)
+    return a * 2
+
 print(my_epic_function(1,2))
 funky_function("hello", 3)
 ok_this_is_a_function()
 print(hi_func("hi!"))
+hello_func(4)
 ```
 
 ## Development
