@@ -8,6 +8,8 @@ import json
 from datetime import datetime
 import ast
 
+PROD = True
+
 class About:
     def __init__(self):
         with open(os.path.join(os.path.dirname(__file__), "build_metadata.json"), "r") as f:
@@ -164,14 +166,15 @@ def main():
         "-g", "--get", metavar="KEY", help="Get a a property from the information."
     )
 
-    lint_ap = sub_aps.add_parser(
-        "lint",
-        help="Lint a .py file for type errors.",
-        description="Lint a .py file for type errors.",
-    )
-    lint_ap.add_argument(
-        "input_file", help="The .py file to lint.", type=file_path, metavar="PATH"
-    )
+    if not PROD:
+        lint_ap = sub_aps.add_parser(
+            "lint",
+            help="Lint a .py file for type errors.",
+            description="Lint a .py file for type errors.",
+        )
+        lint_ap.add_argument(
+            "input_file", help="The .py file to lint.", type=file_path, metavar="PATH"
+        )
     
     args = top_ap.parse_args()
 
@@ -184,6 +187,9 @@ def main():
         else:
             print(about.get_basic())
     elif args.command == "lint":
+        if PROD:
+            print("This feature isn't finished yet. Exiting...")
+            return
         with open(args.input_file, "r") as f:
             code = f.read()
         tree = ast.parse(code)
