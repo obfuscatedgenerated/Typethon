@@ -22,7 +22,9 @@ def main():
         help="Build typethon.",
         description="Build typethon.",
     )
-    build_ap.add_argument("--skip-git", help="Skip git commit hash fetching.", action="store_true")
+    build_ap.add_argument(
+        "--skip-git", help="Skip git commit hash fetching.", action="store_true"
+    )
 
     cont_ap = sub_aps.add_parser(
         "add_contributor",
@@ -31,7 +33,6 @@ def main():
     )
     cont_ap.add_argument("author", help="The author's name.")
 
-
     args = top_ap.parse_args()
 
     if args.command == "build":
@@ -39,11 +40,21 @@ def main():
         build_metadata["build_timestamp"] = time()
         if not args.skip_git:
             print("Fetching commit hash...")
-            try :
-                build_metadata["build_commit"] = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode("ascii").strip()
-                build_metadata["build_commit_short"] = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"]).decode("ascii").strip()
+            try:
+                build_metadata["build_commit"] = (
+                    subprocess.check_output(["git", "rev-parse", "HEAD"])
+                    .decode("ascii")
+                    .strip()
+                )
+                build_metadata["build_commit_short"] = (
+                    subprocess.check_output(["git", "rev-parse", "--short", "HEAD"])
+                    .decode("ascii")
+                    .strip()
+                )
             except:
-                print("Could not get commit hash. Is git installed? You can skip this stage with --skip-git (not recommended).")
+                print(
+                    "Could not get commit hash. Is git installed? You can skip this stage with --skip-git (not recommended)."
+                )
                 exit(1)
         else:
             build_metadata["build_commit"] = "unknown"
@@ -58,6 +69,7 @@ def main():
         sys.argv.append("sdist")
         sys.argv.append("bdist_wheel")
         import setup
+
         print("Done!")
     elif args.command == "add_contributor":
         print("Adding contributor...")
