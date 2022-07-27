@@ -51,8 +51,8 @@ strict_constrained_multiply(4)
 ## Development
 
 1. Clone the repository: `git clone https://github.com/obfuscatedgenerated/Typethon.git`
-2. (optional but recommended) Create a virtual environment: `python -m venv env` (or `python3 -m venv env`) and then activate it: `.\env\Scripts\activate` (or `source env/bin/activate`)
-3. Install build/dev dependencies: `pip install -r requirements.txt`
+2. (optional but recommended) Create a virtual environment: `python -m venv env` (or `python3 -m venv env` on Linux) and then activate it: `.\env\Scripts\activate` (or `source env/bin/activate` on Linux)
+3. Install build/dev dependencies: `pip install -r requirements.txt` (or `pip3 install -r requirements.txt` on Linux)
 4. Once you've made changes, add yourself as a contributor: `python build_tool.py add_contributor <your username>` then commit and make a PR.
 
 - VSCode users: it's recommended to use the Pylance language server as opposed to the Jedi language server as Jedi has issues with wrapper functions when displaying function signatures. You can do this by installing the Pylance extension and changing/setting the `python.languageServer` to `Pylance` in your settings.json file.
